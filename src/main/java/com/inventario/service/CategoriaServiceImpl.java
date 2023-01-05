@@ -1,6 +1,8 @@
 package com.inventario.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +20,12 @@ public class CategoriaServiceImpl implements ICategoriaService {
 
 	@Autowired
 	private ICategoriaDao categoriaDao;
-
+/**
+ * 
+ */
 	@Override
 	@Transactional(readOnly = true) // este metodo funcionara como metodo transacional
-	public ResponseEntity<CategoriaRespuestaRest> entity() {
+	public ResponseEntity<CategoriaRespuestaRest> listaBsd() {
 
 		CategoriaRespuestaRest respuesta = new CategoriaRespuestaRest();
 		try {
@@ -37,5 +41,31 @@ public class CategoriaServiceImpl implements ICategoriaService {
 		}
 		return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.OK);
 	}
-
+/**
+ * 
+ */
+	@Override
+	@Transactional(readOnly = true)
+	public ResponseEntity<CategoriaRespuestaRest> busquedaId(Long id) {
+		CategoriaRespuestaRest respuesta = new CategoriaRespuestaRest();
+		List<CategiraDto> lista = new ArrayList<>();
+		try {
+			
+			Optional<CategiraDto> categoria= categoriaDao.findById(id);
+			
+			if(categoria.isPresent()) {
+				lista.add(categoria.get());
+				respuesta.getRespuestaCategoria().setCategiraDtos(lista);
+				respuesta.setOperacion("Mensaje", "200", "Operacion Exitosa..");
+			}else {
+				respuesta.setOperacion("Mensaje", "404", "Datos no encontados en la base");
+				return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			respuesta.setOperacion("Mensaje", "500", "Error al Consumir Los datos por Id");
+			e.getStackTrace();
+			return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.OK);
+	}
 }

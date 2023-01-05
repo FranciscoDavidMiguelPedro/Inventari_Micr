@@ -6,5 +6,7 @@ import com.inventario.respuesta.CategoriaRespuestaRest;
 
 public interface ICategoriaService {
 
-	public ResponseEntity<CategoriaRespuestaRest>entity();
+	public ResponseEntity<CategoriaRespuestaRest>listaBsd();
+	public ResponseEntity<CategoriaRespuestaRest>busquedaId(Long id);
+	
 }
