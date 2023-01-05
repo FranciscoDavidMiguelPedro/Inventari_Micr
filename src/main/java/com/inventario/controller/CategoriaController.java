@@ -5,10 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventario.dto.CategiraDto;
 import com.inventario.respuesta.CategoriaRespuestaRest;
 import com.inventario.service.ICategoriaService;
 
@@ -30,9 +33,16 @@ public class CategoriaController {
 
 	@GetMapping("/categorias/busquedaId/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<CategoriaRespuestaRest> busquedaCategoriasById(@PathVariable Long id){
+	public ResponseEntity<CategoriaRespuestaRest> busquedaCategoriasById(@PathVariable Integer id){
 		//ResponseEntity<CategoriaRespuestaRest> respuesta = service.busquedaId(id);
 		//return respuesta;
 		return service.busquedaId(id);
+	}
+	@PostMapping("/categorias/guardar")
+	@ResponseStatus(HttpStatus.OK)
+	public  ResponseEntity<CategoriaRespuestaRest> guagarPost(@RequestBody CategiraDto categoriaPost){
+		//ResponseEntity<CategoriaRespuestaRest>respuesta = service.guagarPost(categoriaPost);
+		//return respuesta;
+		return service.guagarPost(categoriaPost);
 	}
 }

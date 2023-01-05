@@ -46,7 +46,7 @@ public class CategoriaServiceImpl implements ICategoriaService {
  */
 	@Override
 	@Transactional(readOnly = true)
-	public ResponseEntity<CategoriaRespuestaRest> busquedaId(Long id) {
+	public ResponseEntity<CategoriaRespuestaRest> busquedaId(Integer id) {
 		CategoriaRespuestaRest respuesta = new CategoriaRespuestaRest();
 		List<CategiraDto> lista = new ArrayList<>();
 		try {
@@ -66,6 +66,30 @@ public class CategoriaServiceImpl implements ICategoriaService {
 			e.getStackTrace();
 			return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.OK);
+	}
+@Override
+@Transactional
+public ResponseEntity<CategoriaRespuestaRest> guagarPost(CategiraDto categoriaPost) {
+	
+	CategoriaRespuestaRest respuesta = new CategoriaRespuestaRest();
+	List<CategiraDto> lista = new ArrayList<>();
+	try {
+		CategiraDto categoriaGuardar= categoriaDao.save(categoriaPost);//de esta forma guardo un registro y lo almaceno en categoriaGuaradr
+		//validacion
+		if (categoriaGuardar != null) {//si se cumple la validacion
+			lista.add(categoriaGuardar);// se almacenara en la lista se guardara en  categoriaGuardar
+			respuesta.getRespuestaCategoria().setCategiraDtos(lista);//se almacenara en la respuesta
+			respuesta.setOperacion("Mensaje", "200", "Operacion Exitosa..");
+		}else {
+			respuesta.setOperacion("Mensaje", "400", "Datos no Guarados Correctamente en la base");
+			return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.BAD_REQUEST);
+		}
+	} catch (Exception e) {
+		respuesta.setOperacion("Mensaje", "500", "Error al Guaradar Datos en la Base de Datos");
+		e.getStackTrace();
+		return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 		return new ResponseEntity<CategoriaRespuestaRest>(respuesta,HttpStatus.OK);
 	}
 }
