@@ -131,4 +131,19 @@ public class CategoriaServiceImpl implements ICategoriaService {
 		}
 		return new ResponseEntity<CategoriaRespuestaRest>(respuesta, HttpStatus.OK);
 	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<CategoriaRespuestaRest> eliminarId(Integer id) {
+		CategoriaRespuestaRest respuesta = new CategoriaRespuestaRest();
+		try {
+			categoriaDao.deleteById(id);
+			respuesta.setOperacion("Mensaje", "200", "Operacion Exitosa..");
+		} catch (Exception e) {
+			respuesta.setOperacion("Mensaje", "500", "Error al Eliminar los datos en la base de datos");
+			e.getStackTrace();
+			return new ResponseEntity<CategoriaRespuestaRest>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<CategoriaRespuestaRest>(respuesta, HttpStatus.OK);
+	}
 }
