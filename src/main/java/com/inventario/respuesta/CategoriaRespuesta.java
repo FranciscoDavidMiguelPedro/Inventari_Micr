@@ -1,17 +1,17 @@
 package com.inventario.respuesta;
 
 import java.util.List;
-import com.inventario.dto.CategiraDto;
+import com.inventario.dto.CategoriaDto;
 
 public class CategoriaRespuesta {
 
-	private List<CategiraDto>inventarioCategorias;
+	private List<CategoriaDto>inventarioCategorias;
 
-	public List<CategiraDto> getInventarioCategorias() {
+	public List<CategoriaDto> getInventarioCategorias() {
 		return inventarioCategorias;
 	}
 
-	public void setCategiraDtos(List<CategiraDto> inventarioCategorias) {
+	public void setCategiraDtos(List<CategoriaDto> inventarioCategorias) {
 		this.inventarioCategorias = inventarioCategorias;
 	}
 }

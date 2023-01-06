@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="categoria")
 
-public class CategiraDto implements Serializable {
+public class CategoriaDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,11 +21,11 @@ public class CategiraDto implements Serializable {
 	private String name;
 	private String descripcion;
 	
-	public CategiraDto() {
+	public CategoriaDto() {
 		
 	}
 
-	public CategiraDto(Integer id, String name, String descripcion) {
+	public CategoriaDto(Integer id, String name, String descripcion) {
 		super();
 		this.id = id;
 		this.name = name;

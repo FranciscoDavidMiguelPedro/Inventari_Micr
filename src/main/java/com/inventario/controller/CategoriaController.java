@@ -6,12 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inventario.dto.CategiraDto;
+import com.inventario.dto.CategoriaDto;
 import com.inventario.respuesta.CategoriaRespuestaRest;
 import com.inventario.service.ICategoriaService;
 
@@ -40,9 +41,17 @@ public class CategoriaController {
 	}
 	@PostMapping("/categorias/guardar")
 	@ResponseStatus(HttpStatus.OK)
-	public  ResponseEntity<CategoriaRespuestaRest> guagarPost(@RequestBody CategiraDto categoriaPost){
+	public  ResponseEntity<CategoriaRespuestaRest> guardarInvent(@RequestBody CategoriaDto gCategoria){
 		//ResponseEntity<CategoriaRespuestaRest>respuesta = service.guagarPost(categoriaPost);
 		//return respuesta;
-		return service.guagarPost(categoriaPost);
+		return service.guardarInvent(gCategoria);
+	}
+	
+	@PutMapping("/categorias/actualizar/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<CategoriaRespuestaRest>actualizarInvent(@RequestBody CategoriaDto actCategoria, @PathVariable Integer id ){
+				//ResponseEntity<CategoriaRespuestaRest>respuesta = service.actualizarInvent(actCategoria, id);
+				//return respuesta;
+		return service.actualizarInvent(actCategoria, id);
 	}
 }
